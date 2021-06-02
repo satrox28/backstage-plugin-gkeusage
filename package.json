@@ -1,0 +1,62 @@
+{
+  "name": "@internal/backstage-plugin-gkeusage",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.esm.js",
+    "types": "dist/index.d.ts"
+  },
+  "scripts": {
+    "build": "backstage-cli plugin:build",
+    "start": "backstage-cli plugin:serve",
+    "lint": "backstage-cli lint",
+    "test": "backstage-cli test",
+    "diff": "backstage-cli plugin:diff",
+    "prepack": "backstage-cli prepack",
+    "postpack": "backstage-cli postpack",
+    "clean": "backstage-cli clean"
+  },
+  "dependencies": {
+    "@backstage/catalog-model": "^0.7.7",
+    "@backstage/core": "^0.7.6",
+    "@google-cloud/bigquery": "^5.6.0",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "4.0.0-alpha.57",
+    "axios-get-json-response": "^1.0.1",
+    "cross-fetch": "^3.0.6",
+    "currency-symbol-map": "^5.0.1",
+    "history": "^5.0.0",
+    "moment": "^2.27.0",
+    "rc-table": "^7.14.0",
+    "re-resizable": "^6.9.0",
+    "react": "^16.13.1",
+    "react-d3-speedometer": "^1.0.1",
+    "react-data-table-component": "^6.11.7",
+    "react-dom": "^16.13.1",
+    "react-json-to-table": "0.1.7",
+    "react-router": "6.0.0-beta.0",
+    "react-router-dom": "6.0.0-beta.0",
+    "react-use": "^15.3.3",
+    "styled-components": "^5.3.0"
+  },
+  "devDependencies": {
+    "@backstage/cli": "^0.6.9",
+    "@backstage/dev-utils": "^0.1.13",
+    "@backstage/test-utils": "^0.1.10",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^10.4.1",
+    "@typescript-eslint/eslint-plugin": "^4.4.0",
+    "@typescript-eslint/parser": "^4.4.0",
+    "esbuild": "^0.11.13",
+    "eslint": "^7.6.0",
+    "eslint-plugin-react": "^7.20.5",
+    "msw": "^0.28.2"
+  },
+  "files": [
+    "dist"
+  ]
+}
