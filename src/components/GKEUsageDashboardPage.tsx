@@ -16,14 +16,14 @@
 
 import { Entity } from '@backstage/catalog-model';
 import { InfoCard } from '@backstage/core';
-import React from 'react';
+import React, { useState } from 'react';
+import Select from 'react-select';
 import { useGkeUsageMeteringAppData } from './useGkeUsageMeteringAppData';
 import { GKECost } from './GKEUsageCost';
 import { GKEConsumption } from './GKEUsageConsumption';
 // import { GKEEfficiency } from './GKEUsageEfficiency'
 import { Card } from '@material-ui/core';
-
-// import { Button } from '@material-ui/core';
+import { options } from './data';
 
 export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
   const { dataset } = useGkeUsageMeteringAppData({ entity });
@@ -33,42 +33,31 @@ export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
   const data = dataset.split('.');
   const keyvalue = label.split(':');
 
-  const backendUrl = 'http://localhost:7000';
-  const url =
-    backendUrl +
-    '/api/gkeusage/cost?projectid=' +
-    data[0] +
-    '&dataset=' +
-    data[1] +
-    '&labelKey=' +
-    keyvalue[0] +
-    '&labelValue=' +
-    keyvalue[1] +
-    '&namespace=' +
-    namespace;
+  let backendUrl = window.location.origin;
+  if (backendUrl.includes('3000')) {
+    backendUrl = backendUrl.replace('3000', '7000');
+  }
 
-  const usageUrl =
-    backendUrl +
-    '/api/gkeusage/usage?projectid=' +
-    data[0] +
-    '&dataset=' +
-    data[1] +
-    '&labelKey=' +
-    keyvalue[0] +
-    '&labelValue=' +
-    keyvalue[1] +
-    '&namespace=' +
-    namespace;
+  const queryStr = `projectid=${data[0]}&dataset=${data[1]}&labelKey=${keyvalue[0]}&labelValue=${keyvalue[1]}&namespace=${namespace}`;
+
+  const costUrl = `${backendUrl}/api/gkeusage/cost?${queryStr}`;
+  const usageUrl = `${backendUrl}/api/gkeusage/usage?${queryStr}`;
+
+  const [days, setDays] = useState(options[3]);
+  const onchangeSelect = (item: any) => {
+    setDays(item);
+  };
 
   return (
-    <InfoCard title="GKE Usage Dashboard" subheader="last 30 days">
+    <InfoCard title="GKE Usage Dashboard">
+      <Select defaultValue={days} onChange={onchangeSelect} options={options} />
       <Card>
-        <GKECost url={url} />
+        <GKECost url={costUrl} maxAge={days.value} />
       </Card>
-      <p></p>
+      <p />
       <Card>
-      <p></p>
-        <GKEConsumption url={usageUrl} />
+        <p />
+        <GKEConsumption url={usageUrl} maxAge={days.value} />
       </Card>
       {/* <p></p>
       <Card title="Efficiency">

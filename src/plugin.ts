@@ -7,7 +7,7 @@ import {
   createRouteRef,
   discoveryApiRef,
 } from '@backstage/core';
-import { gkeusageApiClient, gkeusageApiRef } from './api';
+import { GkeusageApiClient, gkeusageApiRef } from './api';
 import { GKEMETERING_ANNOTATION_DATASET } from './components/useGkeUsageMeteringAppData';
 
 export const isGkeUsageMeteringAvailable = (entity: Entity) =>
@@ -23,7 +23,7 @@ export const gkeusagePlugin = createPlugin({
     createApiFactory({
       api: gkeusageApiRef,
       deps: { discoveryApi: discoveryApiRef },
-      factory: ({ discoveryApi }) => new gkeusageApiClient({ discoveryApi }),
+      factory: ({ discoveryApi }) => new GkeusageApiClient({ discoveryApi }),
     }),
   ],
   routes: {
@@ -37,11 +37,3 @@ export const EntityGContent = gkeusagePlugin.provide(
     mountPoint: entityContentRouteRef,
   }),
 );
-
-// export const EntityGKEUsageSpeedoCard = GKEUsagePlugin.provide(
-//   createComponentExtension({
-//     component: {
-//       lazy: () => import('./components/GKEUsageWidget').then(m => m.GKEUsageSpeedo)
-//     }
-//   })
-// )

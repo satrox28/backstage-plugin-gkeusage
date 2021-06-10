@@ -12,7 +12,7 @@ export type Options = {
   proxyPath?: string;
 };
 
-export class gkeusageApiClient implements gkeusageApi {
+export class GkeusageApiClient implements gkeusageApi {
   // @ts-ignore
   private readonly discoveryApi: DiscoveryApi;
 

@@ -1,22 +1,29 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import { columns } from './data';
+
 class GKECost extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
+
+    this.state = {
+      memoryCost: 0,
+      cpuCost: 0,
+      networkCost: 0,
+      storageCost: 0,
+      gpuCost: 0,
+      totalCost: 0,
+      currency: '',
+      maxAge: '',
+      isLoaded: false,
+    };
   }
-  state = {
-    memoryCost: 0,
-    cpuCost: 0,
-    networkCost: 0,
-    storageCost: 0,
-    gpuCost: 0,
-    totalCost: 0,
-    currency: '',
-  };
 
   async componentDidMount() {
-    const response = await fetch(this.props.url).then(res => res.json());
+    const response = await fetch(
+      `${this.props.url}&maxAge=${this.props.maxAge}`,
+    ).then(res => res.json());
     const currency: any = getSymbolFromCurrency(response[0].currency);
 
     let memoryCost = 0;
@@ -25,28 +32,34 @@ class GKECost extends React.Component<any, any> {
     let storageCost = 0;
     let gpuCost = 0;
 
-    response.forEach(function (value: any) {
+    response.forEach(function roundNumbers(value: any) {
       switch (value.resource_name) {
         case 'cpu':
-          cpuCost = Math.round(value.cost * 100) / 100;
+          cpuCost += value.cost;
           break;
         case 'memory':
-          memoryCost = Math.round(value.cost * 100) / 100;
+          memoryCost += value.cost;
           break;
         case 'storage':
-          storageCost = Math.round(value.cost * 100) / 100;
+          storageCost += value.cost;
           break;
         case 'networkEgress':
-          networkCost = Math.round(value.cost * 100) / 100;
+          networkCost += value.cost;
           break;
-          case 'gpu':
-            gpuCost = Math.round(value.cost * 100) / 100;
-            break;
+        case 'gpu':
+          gpuCost += value.cost;
+          break;
+        default:
+          break;
       }
     });
 
     const totalCost =
-      memoryCost + cpuCost + networkCost + storageCost + gpuCost;
+      Math.round(
+        (memoryCost + cpuCost + networkCost + storageCost + gpuCost) * 100,
+      ) / 100;
+
+    const maxAge = this.props.maxAge;
 
     this.setState({
       memoryCost,
@@ -56,7 +69,64 @@ class GKECost extends React.Component<any, any> {
       gpuCost,
       totalCost,
       currency,
+      maxAge,
+      isLoaded: true,
     });
+  }
+
+  async componentDidUpdate(prevState: { maxAge: string }) {
+    if (prevState.maxAge !== this.props.maxAge) {
+      const response = await fetch(
+        `${this.props.url}&maxAge=${this.props.maxAge}`,
+      ).then(res => res.json());
+      const currency: any = getSymbolFromCurrency(response[0].currency);
+
+      let memoryCost = 0;
+      let cpuCost = 0;
+      let networkCost = 0;
+      let storageCost = 0;
+      let gpuCost = 0;
+      let totalCost = 0;
+
+      response.forEach(function roundNumbers(value: any) {
+        switch (value.resource_name) {
+          case 'cpu':
+            cpuCost += value.cost;
+            break;
+          case 'memory':
+            memoryCost += value.cost;
+            break;
+          case 'storage':
+            storageCost += value.cost;
+            break;
+          case 'networkEgress':
+            networkCost += value.cost;
+            break;
+          case 'gpu':
+            gpuCost += value.cost;
+            break;
+          default:
+            break;
+        }
+      });
+
+      totalCost = memoryCost + cpuCost + networkCost + storageCost + gpuCost;
+
+      const maxAge = this.props.maxAge;
+      /* eslint-disable */
+      this.setState({
+        memoryCost,
+        cpuCost,
+        networkCost,
+        storageCost,
+        gpuCost,
+        totalCost,
+        currency,
+        maxAge,
+        isLoaded: true,
+      });
+      /* eslint-enable  */
+    }
   }
 
   render() {
@@ -68,45 +138,23 @@ class GKECost extends React.Component<any, any> {
       gpuCost,
       totalCost,
       currency,
+      isLoaded,
     } = this.state;
-
-    const columns = [
-      {
-        name: 'CPU Cost',
-        selector: 'cpu',
-      },
-      {
-        name: 'Memory Cost',
-        selector: 'memory',
-      },
-      {
-        name: 'Network Cost',
-        selector: 'network',
-      },
-      {
-        name: 'Storage Cost',
-        selector: 'storage',
-      },
-      {
-        name: 'GPU Cost',
-        selector: 'gpu',
-      },
-      {
-        name: 'Total Cost',
-        selector: 'total',
-      },
-    ];
 
     const data = [
       {
-        cpu: currency + cpuCost,
-        memory: currency + memoryCost,
-        network: currency + networkCost,
-        storage: currency + storageCost,
-        gpu: currency + gpuCost,
-        total: currency + totalCost,
+        cpu: currency + Math.round(cpuCost * 100) / 100,
+        memory: currency + Math.round(memoryCost * 100) / 100,
+        network: currency + Math.round(networkCost * 100) / 100,
+        storage: currency + Math.round(storageCost * 100) / 100,
+        gpu: currency + Math.round(gpuCost * 100) / 100,
+        total: currency + Math.round(totalCost * 100) / 100,
       },
     ];
+
+    if (!isLoaded) {
+      return <p>Loading...</p>;
+    }
     return (
       <div>
         <DataTable columns={columns} data={data} />
