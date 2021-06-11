@@ -1,1 +1,1 @@
-export type KubecostResponse = {};
+export type GKEuseageResponse = {};
