@@ -1,0 +1,39 @@
+version: 2.1
+
+executors:
+  nodejs:
+    docker:
+      - image: cimg/node:14.15.1
+
+commands:
+  yarn-install-pretty-lint-tsc-build:
+    steps:
+      - run:
+          name: yarn install
+          command: yarn install
+      - run:
+          name: yarn prettier
+          command: yarn prettier -c ./src 
+      - run:
+          name: yarn lint
+          command: yarn lerna -- run lint --since origin/master
+      - run:
+          name: type checking and declarations
+          command: yarn tsc
+      - run:
+          name: build all packages
+          command: |
+            yarn build  
+
+jobs:
+  test:
+    executors: nodejs
+    steps:
+      - checkout
+      - yarn-install-pretty-lint-tsc-build
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
