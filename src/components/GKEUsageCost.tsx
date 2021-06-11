@@ -17,6 +17,8 @@ class GKECost extends React.Component<any, any> {
       currency: '',
       maxAge: '',
       isLoaded: false,
+      error: false,
+      errorMsg: '',
     };
   }
 
@@ -24,6 +26,16 @@ class GKECost extends React.Component<any, any> {
     const response = await fetch(
       `${this.props.url}&maxAge=${this.props.maxAge}`,
     ).then(res => res.json());
+
+
+    if (response.hasOwnProperty('error')){
+      this.setState({
+        error: true,
+        errorMsg: response.error.message,
+        isLoaded: true,
+      })
+    }
+    
     const currency: any = getSymbolFromCurrency(response[0].currency);
 
     let memoryCost = 0;
@@ -76,6 +88,12 @@ class GKECost extends React.Component<any, any> {
 
   async componentDidUpdate(prevState: { maxAge: string }) {
     if (prevState.maxAge !== this.props.maxAge) {
+       /* eslint-disable */
+      this.setState({
+        isLoaded: false,
+      })
+       /* eslint-enable */
+      
       const response = await fetch(
         `${this.props.url}&maxAge=${this.props.maxAge}`,
       ).then(res => res.json());
@@ -139,6 +157,9 @@ class GKECost extends React.Component<any, any> {
       totalCost,
       currency,
       isLoaded,
+      error,
+      errorMsg,
+
     } = this.state;
 
     const data = [
@@ -154,6 +175,9 @@ class GKECost extends React.Component<any, any> {
 
     if (!isLoaded) {
       return <p>Loading...</p>;
+    }
+    if (error) {
+      return <p>{errorMsg}</p>
     }
     return (
       <div>

@@ -65,6 +65,12 @@ class GKEConsumption extends React.Component<any, any> {
 
   async componentDidUpdate(prevState: { maxAge: string }) {
     if (prevState.maxAge !== this.props.maxAge) {
+      /* eslint-disable */
+      this.setState({
+        isLoaded: false,
+      });
+      /* eslint-enable */
+
       const response = await fetch(
         `${this.props.url}&maxAge=${this.props.maxAge}`,
       ).then(res => res.json());
@@ -106,6 +112,7 @@ class GKEConsumption extends React.Component<any, any> {
         networkUsage,
         gpuUsage,
         maxAge,
+        isLoaded: true,
       });
       /* eslint-enable */
     }
