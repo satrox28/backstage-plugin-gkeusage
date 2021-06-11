@@ -1,6 +1,6 @@
-import { Grid } from '@material-ui/core';
-import React from 'react';
-import ReactSpeedometer from 'react-d3-speedometer';
+import { Grid } from "@material-ui/core";
+import React from "react";
+import ReactSpeedometer from "react-d3-speedometer";
 
 class GKEConsumption extends React.Component<any, any> {
   constructor(props: any) {
@@ -12,15 +12,15 @@ class GKEConsumption extends React.Component<any, any> {
       storageUsage: 0,
       networkUsage: 0,
       gpuUsage: 0,
-      maxAge: '',
+      maxAge: "",
       isLoaded: false,
     };
   }
 
   async componentDidMount() {
     const response = await fetch(
-      `${this.props.url}&maxAge=${this.props.maxAge}`,
-    ).then(res => res.json());
+      `${this.props.url}&maxAge=${this.props.maxAge}`
+    ).then((res) => res.json());
 
     let cpuUsage = 0;
     let memoryUsage = 0;
@@ -30,19 +30,19 @@ class GKEConsumption extends React.Component<any, any> {
 
     response.forEach(function setPercentage(value: any) {
       switch (value.resource_name) {
-        case 'cpu':
+        case "cpu":
           cpuUsage = value.consumption_percentage;
           break;
-        case 'memory':
+        case "memory":
           memoryUsage = value.consumption_percentage;
           break;
-        case 'storage':
+        case "storage":
           storageUsage = value.consumption_percentage;
           break;
-        case 'networkEgress':
+        case "networkEgress":
           networkUsage = value.consumption_percentage;
           break;
-        case 'gpu':
+        case "gpu":
           gpuUsage = value.consumption_percentage;
           break;
         default:
@@ -72,8 +72,8 @@ class GKEConsumption extends React.Component<any, any> {
       /* eslint-enable */
 
       const response = await fetch(
-        `${this.props.url}&maxAge=${this.props.maxAge}`,
-      ).then(res => res.json());
+        `${this.props.url}&maxAge=${this.props.maxAge}`
+      ).then((res) => res.json());
 
       let cpuUsage = 0;
       let memoryUsage = 0;
@@ -83,19 +83,19 @@ class GKEConsumption extends React.Component<any, any> {
 
       response.forEach(function setPercentage(value: any) {
         switch (value.resource_name) {
-          case 'cpu':
+          case "cpu":
             cpuUsage = value.consumption_percentage;
             break;
-          case 'memory':
+          case "memory":
             memoryUsage = value.consumption_percentage;
             break;
-          case 'storage':
+          case "storage":
             storageUsage = value.consumption_percentage;
             break;
-          case 'networkEgress':
+          case "networkEgress":
             networkUsage = value.consumption_percentage;
             break;
-          case 'gpu':
+          case "gpu":
             gpuUsage = value.consumption_percentage;
             break;
           default:

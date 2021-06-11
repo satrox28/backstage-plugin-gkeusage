@@ -8,7 +8,7 @@ commands:
           command: yarn install
       - run:
           name: yarn prettier
-          command: yarn prettier -c ./src 
+          command: yarn backstage-cli prettier -c ./src 
       - run:
           name: yarn lint
           command: yarn lerna -- run lint --since origin/master
@@ -16,7 +16,7 @@ commands:
           name: type checking and declarations
           command: yarn tsc
       - run:
-          name: build all packages
+          name: build package
           command: |
             yarn build  
 
@@ -28,6 +28,15 @@ jobs:
       - checkout
       - yarn-install-pretty-lint-tsc-build
 
+  publish:
+    docker:
+      - image: cimg/node:14.15.1
+    steps:
+      - checkout
+      - yarn-install-pretty-lint-tsc-build
+      - run:
+          name: publish
+          command: yarn publish 
 workflows:
   version: 2
   test:
