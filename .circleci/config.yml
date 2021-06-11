@@ -1,10 +1,5 @@
 version: 2.1
 
-executors:
-  nodejs:
-    docker:
-      - image: cimg/node:14.15.1
-
 commands:
   yarn-install-pretty-lint-tsc-build:
     steps:
@@ -27,7 +22,8 @@ commands:
 
 jobs:
   test:
-    executors: nodejs
+    docker:
+      - image: cimg/node:14.15.1
     steps:
       - checkout
       - yarn-install-pretty-lint-tsc-build
