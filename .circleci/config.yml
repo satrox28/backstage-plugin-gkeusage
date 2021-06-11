@@ -8,7 +8,7 @@ commands:
           command: yarn install
       - run:
           name: yarn prettier
-          command: yarn backstage-cli prettier -c ./src 
+          command: yarn prettier -c ./src 
       - run:
           name: yarn lint
           command: yarn lerna -- run lint --since origin/master
@@ -37,6 +37,7 @@ jobs:
       - run:
           name: publish
           command: yarn publish 
+
 workflows:
   version: 2
   test:
