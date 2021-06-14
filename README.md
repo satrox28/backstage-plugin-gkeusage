@@ -4,6 +4,8 @@
 Welcome to the gkeusage backend plugin!
 This plugin will show you the cost and resource usage of your application within GKE 
 
+![GKE USage](gkeusage.png)
+
 ## Getting started
 ### Enabled GKE usage metering
 Documentation on how to enable GKE usage metering can be found [here](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-usage-metering#enabling)
