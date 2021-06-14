@@ -1,5 +1,6 @@
 # Backstage GKE Usage plugin 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BESTSELLER_backstage-plugin-gkeusage&metric=alert_status)](https://sonarcloud.io/dashboard?id=BESTSELLER_backstage-plugin-gkeusage)
+![npm](https://img.shields.io/npm/dt/@bestsellerit/backstage-plugin-gkeusage)
 
 Welcome to the gkeusage backend plugin!
 This plugin will show you the cost and resource usage of your application within GKE 
