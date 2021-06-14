@@ -11,7 +11,7 @@ commands:
           command: yarn prettier -c ./src 
       - run:
           name: yarn lint
-          command: yarn lerna --run lint --since origin/master
+          command: yarn lint
       - run:
           name: type checking and declarations
           command: yarn tsc
