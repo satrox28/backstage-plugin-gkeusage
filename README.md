@@ -14,15 +14,15 @@ Create a GPC service account with BigQuery Data Viewer and BigQuery Job User per
 ### Enabling frontend 
 ```bash
 cd package/app
-yarn add @bestseller/backstage-plugin-gkeusge
+yarn add @bestsellerit/backstage-plugin-gkeusge
 ```
 ```ts
 // packages/app/src/plugins.ts
-export { plugin as gkeusage } from '@bestseller/backstage-plugin-gkeusage';
+export { plugin as gkeusage } from '@bestsellerit/backstage-plugin-gkeusage';
 ```
 ```ts
 // packages/app/src/components/catalog/EntityPage.tsx
-import { Router as GKEUsageRouter } from '@bestseller/backstage-plugin-gkeusage';
+import { Router as GKEUsageRouter } from '@bestsellerit/backstage-plugin-gkeusage';
 
 const serviceEntityPage = (
 // ...
@@ -39,13 +39,13 @@ const serviceEntityPage = (
 
 ```bash
 cd packages/backend
-yarn add @bestseller/backstage-plugin-gkeusage-backend
+yarn add @bestsellerit/backstage-plugin-gkeusage-backend
 ```
 
 Create a new file named `packages/backend/src/plugins/gkeusage.ts`, and add the following to it
 
 ```ts
-import { createRouter } from '@internal/backstage-plugin-gkeusage-backend';
+import { createRouter } from '@bestsellerit/backstage-plugin-gkeusage-backend';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
 
