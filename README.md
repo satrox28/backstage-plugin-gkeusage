@@ -17,7 +17,7 @@ Create a GPC service account with BigQuery Data Viewer and BigQuery Job User per
 ### Enabling frontend 
 ```bash
 cd package/app
-yarn add @bestsellerit/backstage-plugin-gkeusge
+yarn add @bestsellerit/backstage-plugin-gkeusage
 ```
 ```ts
 // packages/app/src/plugins.ts
