@@ -68,7 +68,7 @@ import gkeusage from './plugins/gkeusage';
 async function main() {
   // ...
   const gkeusageEnv = useHotMemoize(module, () => createEnv('gkeusage'));
-  apiRouter.use('/gkeusage', await carmen(gkeusageEnv));
+  apiRouter.use('/gkeusage', await gkeusage(gkeusageEnv));
 
 ```
 
