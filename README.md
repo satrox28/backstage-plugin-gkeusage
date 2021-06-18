@@ -31,7 +31,7 @@ const serviceEntityPage = (
   <EntityPageLayout>
     // ...
     <EntityLayout.Route path="/gkeusage" title="GKE Usage">
-      <EntityDatadogContent />
+      <EntityGKEUsageContent />
     </EntityLayout.Route>
   </EntityPageLayout>
 )
