@@ -31,7 +31,7 @@ export const gkeusagePlugin = createPlugin({
   },
 });
 
-export const EntityGContent = gkeusagePlugin.provide(
+export const EntityGKEUsageContent = gkeusagePlugin.provide(
   createRoutableExtension({
     component: () => import("./Router").then((m) => m.Router),
     mountPoint: entityContentRouteRef,
