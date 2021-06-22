@@ -1,4 +1,4 @@
-import { Entity } from '@backstage/catalog-model';
+import { Entity } from "@backstage/catalog-model";
 import {
   createApiFactory,
   // createComponentExtension,
@@ -6,19 +6,19 @@ import {
   createRoutableExtension,
   createRouteRef,
   discoveryApiRef,
-} from '@backstage/core';
-import { GkeusageApiClient, gkeusageApiRef } from './api';
-import { GKEMETERING_ANNOTATION_DATASET } from './components/useGkeUsageMeteringAppData';
+} from "@backstage/core";
+import { GkeusageApiClient, gkeusageApiRef } from "./api";
+import { GKEMETERING_ANNOTATION_DATASET } from "./components/useGkeUsageMeteringAppData";
 
 export const isGkeUsageMeteringAvailable = (entity: Entity) =>
   Boolean(entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_DATASET]);
 
 export const entityContentRouteRef = createRouteRef({
-  title: 'GKE Usage Metering Entity Content',
+  title: "GKE Usage Metering Entity Content",
 });
 
 export const gkeusagePlugin = createPlugin({
-  id: 'GKE Usage',
+  id: "GKE Usage",
   apis: [
     createApiFactory({
       api: gkeusageApiRef,
@@ -33,7 +33,7 @@ export const gkeusagePlugin = createPlugin({
 
 export const EntityGKEUsageContent = gkeusagePlugin.provide(
   createRoutableExtension({
-    component: () => import('./Router').then(m => m.Router),
+    component: () => import("./Router").then((m) => m.Router),
     mountPoint: entityContentRouteRef,
-  }),
+  })
 );
