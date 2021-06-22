@@ -25,7 +25,7 @@ export { plugin as gkeusage } from '@bestsellerit/backstage-plugin-gkeusage';
 ```
 ```ts
 // packages/app/src/components/catalog/EntityPage.tsx
-import { Router as GKEUsageRouter } from '@bestsellerit/backstage-plugin-gkeusage';
+import { EntityGKEUsageContent } from '@internal/backstage-plugin-gkeusage';
 
 const serviceEntityPage = (
   <EntityPageLayout>
