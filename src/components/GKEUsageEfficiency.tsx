@@ -1,6 +1,6 @@
-import { Grid } from "@material-ui/core";
-import React from "react";
-import ReactSpeedometer from "react-d3-speedometer";
+import { Grid } from '@material-ui/core';
+import React from 'react';
+import ReactSpeedometer from 'react-d3-speedometer';
 
 class GKEEfficiency extends React.Component<any, any> {
   constructor(props: any) {
@@ -16,8 +16,8 @@ class GKEEfficiency extends React.Component<any, any> {
   }
 
   async componentDidMount() {
-    const usage = await fetch(this.props.usageUrl).then((res) => res.json());
-    const cost = await fetch(this.props.costUrl).then((res) => res.json());
+    const usage = await fetch(this.props.usageUrl).then(res => res.json());
+    const cost = await fetch(this.props.costUrl).then(res => res.json());
 
     let cpuUsage = 0;
     let memoryUsage = 0;
@@ -32,19 +32,19 @@ class GKEEfficiency extends React.Component<any, any> {
 
     usage.forEach(function setPercentage(value: any) {
       switch (value.resource_name) {
-        case "cpu":
+        case 'cpu':
           cpuUsage = value.consumption_percentage;
           break;
-        case "memory":
+        case 'memory':
           memoryUsage = value.consumption_percentage;
           break;
-        case "storage":
+        case 'storage':
           storageUsage = value.consumption_percentage;
           break;
-        case "networkEgress":
+        case 'networkEgress':
           networkUsage = value.consumption_percentage;
           break;
-        case "gpu":
+        case 'gpu':
           gpuUsage = value.consumption_percentage;
           break;
         default:
@@ -54,19 +54,19 @@ class GKEEfficiency extends React.Component<any, any> {
 
     cost.forEach(function roundNumbers(value: any) {
       switch (value.resource_name) {
-        case "cpu":
+        case 'cpu':
           cpuCost = Math.round(value.cost * 100) / 100;
           break;
-        case "memory":
+        case 'memory':
           memoryCost = Math.round(value.cost * 100) / 100;
           break;
-        case "storage":
+        case 'storage':
           storageCost = Math.round(value.cost * 100) / 100;
           break;
-        case "networkEgress":
+        case 'networkEgress':
           networkCost = Math.round(value.cost * 100) / 100;
           break;
-        case "gpu":
+        case 'gpu':
           gpuCost = Math.round(value.cost * 100) / 100;
           break;
         default:

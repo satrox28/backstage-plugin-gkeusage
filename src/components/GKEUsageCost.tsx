@@ -1,7 +1,7 @@
-import React from "react";
-import DataTable from "react-data-table-component";
-import getSymbolFromCurrency from "currency-symbol-map";
-import { columns } from "./data";
+import React from 'react';
+import DataTable from 'react-data-table-component';
+import getSymbolFromCurrency from 'currency-symbol-map';
+import { columns } from './data';
 
 class GKECost extends React.Component<any, any> {
   constructor(props: any) {
@@ -14,20 +14,20 @@ class GKECost extends React.Component<any, any> {
       storageCost: 0,
       gpuCost: 0,
       totalCost: 0,
-      currency: "",
-      maxAge: "",
+      currency: '',
+      maxAge: '',
       isLoaded: false,
       error: false,
-      errorMsg: "",
+      errorMsg: '',
     };
   }
 
   async componentDidMount() {
     const response = await fetch(
-      `${this.props.url}&maxAge=${this.props.maxAge}`
-    ).then((res) => res.json());
+      `${this.props.url}&maxAge=${this.props.maxAge}`,
+    ).then(res => res.json());
 
-    if (response.hasOwnProperty("error")) {
+    if (response.hasOwnProperty('error')) {
       this.setState({
         error: true,
         errorMsg: response.error.message,
@@ -45,19 +45,19 @@ class GKECost extends React.Component<any, any> {
 
     response.forEach(function roundNumbers(value: any) {
       switch (value.resource_name) {
-        case "cpu":
+        case 'cpu':
           cpuCost += value.cost;
           break;
-        case "memory":
+        case 'memory':
           memoryCost += value.cost;
           break;
-        case "storage":
+        case 'storage':
           storageCost += value.cost;
           break;
-        case "networkEgress":
+        case 'networkEgress':
           networkCost += value.cost;
           break;
-        case "gpu":
+        case 'gpu':
           gpuCost += value.cost;
           break;
         default:
@@ -67,7 +67,7 @@ class GKECost extends React.Component<any, any> {
 
     const totalCost =
       Math.round(
-        (memoryCost + cpuCost + networkCost + storageCost + gpuCost) * 100
+        (memoryCost + cpuCost + networkCost + storageCost + gpuCost) * 100,
       ) / 100;
 
     const maxAge = this.props.maxAge;
@@ -94,8 +94,8 @@ class GKECost extends React.Component<any, any> {
       /* eslint-enable */
 
       const response = await fetch(
-        `${this.props.url}&maxAge=${this.props.maxAge}`
-      ).then((res) => res.json());
+        `${this.props.url}&maxAge=${this.props.maxAge}`,
+      ).then(res => res.json());
       const currency: any = getSymbolFromCurrency(response[0].currency);
 
       let memoryCost = 0;
@@ -107,19 +107,19 @@ class GKECost extends React.Component<any, any> {
 
       response.forEach(function roundNumbers(value: any) {
         switch (value.resource_name) {
-          case "cpu":
+          case 'cpu':
             cpuCost += value.cost;
             break;
-          case "memory":
+          case 'memory':
             memoryCost += value.cost;
             break;
-          case "storage":
+          case 'storage':
             storageCost += value.cost;
             break;
-          case "networkEgress":
+          case 'networkEgress':
             networkCost += value.cost;
             break;
-          case "gpu":
+          case 'gpu':
             gpuCost += value.cost;
             break;
           default:
