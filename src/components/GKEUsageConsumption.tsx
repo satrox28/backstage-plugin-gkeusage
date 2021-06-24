@@ -30,7 +30,7 @@ export function GKEConsumption(props: ConsumptionProps) {
    }, 3000)
 
 
-  }, [props.maxAge]);
+  }, [props.url, props.maxAge]);
 
   if(!loading){
     return <div>Loading...</div> 
@@ -70,6 +70,6 @@ interface Consumption {
 }
 
 interface ConsumptionProps {
-  maxAge: string;
   url: string
+  maxAge: string
 }

@@ -9,7 +9,6 @@ export function GKECost(props: CostProps) {
     const [ errorMsg, setErrorMsg ] = useState('')
     const [cost, setCost] = useState<ResourceCost>();
 
-
     useEffect(() => {
         setLoading(false)
         async function getCost() {
@@ -86,7 +85,7 @@ export function GKECost(props: CostProps) {
 
    
 
-    }, [props.maxAge])
+    }, [props.url, props.maxAge])
 
         const data = [
            cost
