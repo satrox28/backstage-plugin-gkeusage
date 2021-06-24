@@ -21,7 +21,6 @@ import Select from "react-select";
 import { useGkeUsageMeteringAppData } from "./useGkeUsageMeteringAppData";
 import { GKECost } from "./GKEUsageCost";
 import { GKEConsumption } from "./GKEUsageConsumption";
-// import { GKEEfficiency } from './GKEUsageEfficiency'
 import { Card } from "@material-ui/core";
 import { options } from "./data";
 
@@ -59,10 +58,6 @@ export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
         <p />
         <GKEConsumption url={usageUrl} maxAge={days.value} />
       </Card>
-      {/* <p></p>
-      <Card title="Efficiency">
-        <GKEEfficiency usageUrl={usageUrl} costUrl={url}/>
-      </Card> */}
     </InfoCard>
   );
 };
