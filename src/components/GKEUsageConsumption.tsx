@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Grid } from '@material-ui/core';
-import ReactSpeedometer from 'react-d3-speedometer';
+import React, { useEffect, useState } from "react";
+import { Grid } from "@material-ui/core";
+import ReactSpeedometer from "react-d3-speedometer";
 
 export function GKEConsumption(props: ConsumptionProps) {
   const [loading, setLoading] = useState(false);
-  const [ error, setError ] = useState(false)
-  const [ errorMsg, setErrorMsg ] = useState('')
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [usage, setUsage] = useState([]);
 
   useEffect(() => {
-    setLoading(false)
+    setLoading(false);
     async function getUsage() {
-      const response = await fetch(
-        `${props.url}&maxAge=${props.maxAge}`,
-      );
+      const response = await fetch(`${props.url}&maxAge=${props.maxAge}`);
       const json = await response.json();
-      
-      if (json.hasOwnProperty('error')) {
-        setError(true)
-        setErrorMsg(json.error.message)
+
+      if (json.hasOwnProperty("error")) {
+        setError(true);
+        setErrorMsg(json.error.message);
       }
 
       setUsage(json);
@@ -26,18 +24,16 @@ export function GKEConsumption(props: ConsumptionProps) {
     getUsage();
 
     setTimeout(() => {
-      setLoading(true)
-   }, 3000)
-
-
+      setLoading(true);
+    }, 3000);
   }, [props.maxAge]);
 
-  if(!loading){
-    return <div>Loading...</div> 
- }
- if (error) {
-  return <p>{errorMsg}</p>;
-}
+  if (!loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <p>{errorMsg}</p>;
+  }
 
   return (
     <div>
@@ -51,7 +47,7 @@ export function GKEConsumption(props: ConsumptionProps) {
                 currentValueText={`${item.resource_name} usage %`}
               />
             </Grid>
-          ) : null,
+          ) : null
         )}
       </Grid>
     </div>
@@ -71,5 +67,5 @@ interface Consumption {
 
 interface ConsumptionProps {
   maxAge: string;
-  url: string
+  url: string;
 }
