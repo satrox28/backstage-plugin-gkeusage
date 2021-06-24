@@ -1,4 +1,7 @@
-export const options = [
+interface Option: { label: string,
+    value: number}
+
+export const options: Option[] = [
   {
     label: "last 1 days",
     value: "1",
