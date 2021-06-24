@@ -1,182 +1,77 @@
-import { Grid } from "@material-ui/core";
-import React from "react";
-import ReactSpeedometer from "react-d3-speedometer";
+import React, { useEffect, useState } from 'react';
+import { Grid } from '@material-ui/core';
+import ReactSpeedometer from 'react-d3-speedometer';
 
-class GKEConsumption extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
+export function GKEConsumption(props: ConsumptionProps) {
+  const [loading, setLoading] = useState(false);
+  const [ error, setError ] = useState(false)
+  const [ errorMsg, setErrorMsg ] = useState('')
+  const [query, setQuery] = useState('30');
+  const [usage, setUsage] = useState([]);
 
-    this.state = {
-      cpuUsage: 0,
-      memoryUsage: 0,
-      storageUsage: 0,
-      networkUsage: 0,
-      gpuUsage: 0,
-      maxAge: "",
-      isLoaded: false,
-    };
-  }
+  useEffect(() => {
+    setQuery(props.maxAge);
 
-  async componentDidMount() {
-    const response = await fetch(
-      `${this.props.url}&maxAge=${this.props.maxAge}`
-    ).then((res) => res.json());
-
-    let cpuUsage = 0;
-    let memoryUsage = 0;
-    let storageUsage = 0;
-    let networkUsage = 0;
-    let gpuUsage = 0;
-
-    response.forEach(function setPercentage(value: any) {
-      switch (value.resource_name) {
-        case "cpu":
-          cpuUsage = value.consumption_percentage;
-          break;
-        case "memory":
-          memoryUsage = value.consumption_percentage;
-          break;
-        case "storage":
-          storageUsage = value.consumption_percentage;
-          break;
-        case "networkEgress":
-          networkUsage = value.consumption_percentage;
-          break;
-        case "gpu":
-          gpuUsage = value.consumption_percentage;
-          break;
-        default:
-          break;
-      }
-    });
-
-    const maxAge = this.props.maxAge;
-
-    this.setState({
-      cpuUsage,
-      memoryUsage,
-      storageUsage,
-      networkUsage,
-      gpuUsage,
-      maxAge,
-      isLoaded: true,
-    });
-  }
-
-  async componentDidUpdate(prevState: { maxAge: string }) {
-    if (prevState.maxAge !== this.props.maxAge) {
-      /* eslint-disable */
-      this.setState({
-        isLoaded: false,
-      });
-      /* eslint-enable */
-
+    async function getUsage() {
       const response = await fetch(
-        `${this.props.url}&maxAge=${this.props.maxAge}`
-      ).then((res) => res.json());
+        `${props.url}&maxAge=${query}`,
+      );
+      const json = await response.json();
+      
+      if (json.hasOwnProperty('error')) {
+        setError(true)
+        setErrorMsg(json.error.message)
+      }
 
-      let cpuUsage = 0;
-      let memoryUsage = 0;
-      let storageUsage = 0;
-      let networkUsage = 0;
-      let gpuUsage = 0;
-
-      response.forEach(function setPercentage(value: any) {
-        switch (value.resource_name) {
-          case "cpu":
-            cpuUsage = value.consumption_percentage;
-            break;
-          case "memory":
-            memoryUsage = value.consumption_percentage;
-            break;
-          case "storage":
-            storageUsage = value.consumption_percentage;
-            break;
-          case "networkEgress":
-            networkUsage = value.consumption_percentage;
-            break;
-          case "gpu":
-            gpuUsage = value.consumption_percentage;
-            break;
-          default:
-            break;
-        }
-      });
-
-      const maxAge = this.props.maxAge;
-      /* eslint-disable */
-      this.setState({
-        cpuUsage,
-        memoryUsage,
-        storageUsage,
-        networkUsage,
-        gpuUsage,
-        maxAge,
-        isLoaded: true,
-      });
-      /* eslint-enable */
+      setUsage(json);
     }
-  }
+    getUsage();
 
-  render() {
-    const {
-      cpuUsage,
-      memoryUsage,
-      storageUsage,
-      networkUsage,
-      gpuUsage,
-      isLoaded,
-    } = this.state;
+    setTimeout(() => {
+      setLoading(true)
+   }, 3000)
 
-    if (!isLoaded) {
-      return <p>Loading...</p>;
-    }
-    return (
-      <div>
-        <Grid container spacing={5}>
-          <Grid item direction="row" alignItems="center">
-            <ReactSpeedometer
-              value={cpuUsage}
-              maxValue={100}
-              currentValueText="cpu usage %"
-            />
-          </Grid>
 
-          <Grid item direction="row" alignItems="center">
-            <ReactSpeedometer
-              value={memoryUsage}
-              maxValue={100}
-              currentValueText="memory usage %"
-            />
-          </Grid>
+  }, [props.maxAge, query]);
 
-          <Grid item direction="row" alignItems="center">
-            <ReactSpeedometer
-              value={networkUsage}
-              maxValue={100}
-              currentValueText="network usage %"
-            />
-          </Grid>
-
-          <Grid item direction="row" alignItems="center">
-            <ReactSpeedometer
-              value={storageUsage}
-              maxValue={100}
-              currentValueText="storage usage %"
-            />
-          </Grid>
-
-          <Grid item direction="row" alignItems="center">
-            <ReactSpeedometer
-              value={gpuUsage}
-              maxValue={100}
-              currentValueText="gpu usage %"
-            />
-          </Grid>
-        </Grid>
-      </div>
-    );
-  }
+  if(!loading){
+    return <div>Loading...</div> 
+ }
+ if (error) {
+  return <p>{errorMsg}</p>;
 }
 
-export { GKEConsumption };
+  return (
+    <div>
+      <Grid container spacing={5}>
+        {usage.map((item: Consumption) =>
+          item.consumption_percentage > 0 ? (
+            <Grid item sm={4}>
+              <ReactSpeedometer
+                value={item.consumption_percentage}
+                maxValue={100}
+                currentValueText={`${item.resource_name} usage %`}
+              />
+            </Grid>
+          ) : null,
+        )}
+      </Grid>
+    </div>
+  );
+}
+
+interface Consumption {
+  key: string;
+  value: string;
+  namespace: string;
+  resource_name: string;
+  requested_amount: number;
+  consumed_amount?: number;
+  unit: string;
+  consumption_percentage: number;
+}
+
+interface ConsumptionProps {
+  maxAge: string;
+  url: string
+}
