@@ -21,7 +21,10 @@ export const options = [
   },
 ];
 
-export const columns = [
+interface Column = {name: string,
+    selector: string}
+
+export const columns: Column[] = [
   {
     name: "CPU Cost",
     selector: "cpu",
