@@ -1,4 +1,7 @@
-export const options = [
+interface Option: { label: string,
+    value: number}
+
+export const options: Option[] = [
   {
     label: "last 1 days",
     value: "1",
@@ -21,7 +24,10 @@ export const options = [
   },
 ];
 
-export const columns = [
+interface Column = {name: string,
+    selector: string}
+
+export const columns: Column[] = [
   {
     name: "CPU Cost",
     selector: "cpu",
