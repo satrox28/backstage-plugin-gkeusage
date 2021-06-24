@@ -1,7 +1,6 @@
 import { Entity } from "@backstage/catalog-model";
 import {
   createApiFactory,
-  // createComponentExtension,
   createPlugin,
   createRoutableExtension,
   createRouteRef,
