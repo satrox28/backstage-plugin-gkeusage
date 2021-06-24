@@ -1,5 +1,7 @@
-interface Option: { label: string,
-    value: number}
+interface Option {
+  label: string;
+  value: string;
+}
 
 export const options: Option[] = [
   {
@@ -24,8 +26,10 @@ export const options: Option[] = [
   },
 ];
 
-interface Column = {name: string,
-    selector: string}
+interface Column {
+  name: string;
+  selector: string;
+}
 
 export const columns: Column[] = [
   {
