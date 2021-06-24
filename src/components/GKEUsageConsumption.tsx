@@ -6,15 +6,13 @@ export function GKEConsumption(props: ConsumptionProps) {
   const [loading, setLoading] = useState(false);
   const [ error, setError ] = useState(false)
   const [ errorMsg, setErrorMsg ] = useState('')
-  const [query, setQuery] = useState('30');
   const [usage, setUsage] = useState([]);
 
   useEffect(() => {
-    setQuery(props.maxAge);
-
+    setLoading(false)
     async function getUsage() {
       const response = await fetch(
-        `${props.url}&maxAge=${query}`,
+        `${props.url}&maxAge=${props.maxAge}`,
       );
       const json = await response.json();
       
@@ -32,7 +30,7 @@ export function GKEConsumption(props: ConsumptionProps) {
    }, 3000)
 
 
-  }, [props.maxAge, query]);
+  }, [props.maxAge]);
 
   if(!loading){
     return <div>Loading...</div> 
@@ -46,7 +44,7 @@ export function GKEConsumption(props: ConsumptionProps) {
       <Grid container spacing={5}>
         {usage.map((item: Consumption) =>
           item.consumption_percentage > 0 ? (
-            <Grid item sm={4}>
+            <Grid key={item.resource_name} item sm={4}>
               <ReactSpeedometer
                 value={item.consumption_percentage}
                 maxValue={100}
