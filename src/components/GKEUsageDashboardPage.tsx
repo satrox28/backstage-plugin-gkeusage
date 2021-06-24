@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-import { Entity } from "@backstage/catalog-model";
-import { InfoCard } from "@backstage/core";
-import React, { useState } from "react";
-import Select from "react-select";
-import { useGkeUsageMeteringAppData } from "./useGkeUsageMeteringAppData";
-import { GKECost } from "./GKEUsageCost";
-import { GKEConsumption } from "./GKEUsageConsumption";
+import { Entity } from '@backstage/catalog-model';
+import { InfoCard } from '@backstage/core';
+import React, { useState } from 'react';
+import Select from 'react-select';
+import { useGkeUsageMeteringAppData } from './useGkeUsageMeteringAppData';
+import { GKECost } from './GKEUsageCost';
+import { GKEConsumption } from './GKEUsageConsumption';
 // import { GKEEfficiency } from './GKEUsageEfficiency'
-import { Card } from "@material-ui/core";
-import { options } from "./data";
+import { Card } from '@material-ui/core';
+import { options } from './data';
 
 export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
   const { dataset } = useGkeUsageMeteringAppData({ entity });
   const { namespace } = useGkeUsageMeteringAppData({ entity });
   const { label } = useGkeUsageMeteringAppData({ entity });
 
-  const data = dataset.split(".");
-  const keyvalue = label.split(":");
+  const data = dataset.split('.');
+  const keyvalue = label.split(':');
 
   let backendUrl = window.location.origin;
-  if (backendUrl.includes("3000")) {
-    backendUrl = backendUrl.replace("3000", "7000");
+  if (backendUrl.includes('3000')) {
+    backendUrl = backendUrl.replace('3000', '7000');
   }
 
   const queryStr = `projectid=${data[0]}&dataset=${data[1]}&labelKey=${keyvalue[0]}&labelValue=${keyvalue[1]}&namespace=${namespace}`;

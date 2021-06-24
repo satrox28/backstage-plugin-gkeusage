@@ -1,10 +1,10 @@
-import { createApiRef, DiscoveryApi } from "@backstage/core";
+import { createApiRef, DiscoveryApi } from '@backstage/core';
 
 export interface gkeusageApi {}
 
 export const gkeusageApiRef = createApiRef<gkeusageApi>({
-  id: "plugin.gkeusage.service",
-  description: "Used by the GKEUsage plugin to make requests",
+  id: 'plugin.gkeusage.service',
+  description: 'Used by the GKEUsage plugin to make requests',
 });
 
 export type Options = {

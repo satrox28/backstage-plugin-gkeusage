@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import DataTable from 'react-data-table-component';
-import getSymbolFromCurrency from 'currency-symbol-map';
-import { columns } from './data';
+import React, { useEffect, useState } from "react";
+import DataTable from "react-data-table-component";
+import getSymbolFromCurrency from "currency-symbol-map";
+import { columns } from "./data";
 
 export function GKECost(props: CostProps) {
     const [loading, setLoading] = useState(false);
@@ -83,43 +83,43 @@ export function GKECost(props: CostProps) {
 
         getCost()
 
-   
+    setTimeout(() => {
+      setLoading(true);
+    }, 3000);
 
-    }, [props.url, props.maxAge])
+    getCost();
+  }, [props.url, props.maxAge]);
 
-        const data = [
-           cost
-          ];
+  const data = [cost];
 
-    if(!loading){
-        return <div>Loading...</div> 
-     }
-     if (error) {
-      return <p>{errorMsg}</p>;
-    }
+  if (!loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <p>{errorMsg}</p>;
+  }
 
-    return (
-        <div>
-        <DataTable columns={columns} data={data} />
-        </div>
-    );
+  return (
+    <div>
+      <DataTable columns={columns} data={data} />
+    </div>
+  );
 }
-  
+
 interface CostProps {
-    maxAge: string
-    url: string
+  maxAge: string;
+  url: string;
 }
 
 export interface ResourceCost {
-    cpu: string,
-    memory: string,
-    network:  string,
-    storage: string,
-    gpu:  string
-    total: string,
-  }
-  
-  export interface Date {
-    value: string
-  }
-  
+  cpu: string;
+  memory: string;
+  network: string;
+  storage: string;
+  gpu: string;
+  total: string;
+}
+
+export interface Date {
+  value: string;
+}

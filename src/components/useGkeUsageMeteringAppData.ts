@@ -15,19 +15,19 @@
  * limitations under the License.
  */
 
-import { Entity } from "@backstage/catalog-model";
+import { Entity } from '@backstage/catalog-model';
 
-export const GKEMETERING_ANNOTATION_DATASET = "gkeusage/dataset";
-export const GKEMETERING_ANNOTATION_NAMESPACE = "gkeusage/namespace";
-export const GKEMETERING_ANNOTATION_LABEL = "gkeusage/label";
+export const GKEMETERING_ANNOTATION_DATASET = 'gkeusage/dataset';
+export const GKEMETERING_ANNOTATION_NAMESPACE = 'gkeusage/namespace';
+export const GKEMETERING_ANNOTATION_LABEL = 'gkeusage/label';
 
 export const useGkeUsageMeteringAppData = ({ entity }: { entity: Entity }) => {
   const dataset =
-    entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_DATASET] ?? "";
+    entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_DATASET] ?? '';
   const namespace =
-    entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_NAMESPACE] ?? "";
+    entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_NAMESPACE] ?? '';
   const label =
-    entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_LABEL] ?? "";
+    entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_LABEL] ?? '';
 
   if (!dataset && !namespace && !label) {
     throw new Error("'gke usage metering' annotations are missing");
