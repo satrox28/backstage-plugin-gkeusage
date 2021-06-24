@@ -68,6 +68,11 @@ interface Consumption {
 }
 
 interface ConsumptionProps {
+<<<<<<< HEAD
   url: string
   maxAge: string
+=======
+  maxAge: string;
+  url: string;
+>>>>>>> 8c4cd7c7ec465bba80bfa8615189831dbef4490a
 }
