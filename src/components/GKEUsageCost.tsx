@@ -50,7 +50,9 @@ export function GKECost(props: CostProps) {
         })
       );
 
-      const currency: string|undefined = getSymbolFromCurrency(json[0].currency);
+      const currency: string | undefined = getSymbolFromCurrency(
+        json[0].currency
+      );
 
       const totalCost =
         Math.round(
