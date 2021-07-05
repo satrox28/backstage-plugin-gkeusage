@@ -22,7 +22,9 @@ import { useGkeUsageMeteringAppData } from "./useGkeUsageMeteringAppData";
 import { GKECost } from "./GKEUsageCost";
 import { GKEConsumption } from "./GKEUsageConsumption";
 import { Card } from "@material-ui/core";
-import { options } from "./data";
+import { getSelectTheme, options } from "./data";
+import useTheme from '@material-ui/core/styles/useTheme';
+
 
 export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
   const { dataset } = useGkeUsageMeteringAppData({ entity });
@@ -47,9 +49,17 @@ export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
     setDays(item);
   };
 
+
+  const theme = useTheme()
+  const formThemeColors = getSelectTheme(theme)
+
   return (
     <InfoCard title="GKE Usage Dashboard">
-      <Select defaultValue={days} onChange={onchangeSelect} options={options} />
+      <Select theme={theme => ({
+                  ...theme,
+                  colors: {
+                    ...formThemeColors
+                  }})} defaultValue={days} onChange={onchangeSelect} options={options} />
       <Card>
         <GKECost url={costUrl} maxAge={days.value} />
       </Card>

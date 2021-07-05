@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import getSymbolFromCurrency from "currency-symbol-map";
-import { columns } from "./data";
+import { columns, getTheme } from "./data";
 
 export function GKECost(props: CostProps) {
   const [loading, setLoading] = useState(false);
@@ -86,6 +86,8 @@ export function GKECost(props: CostProps) {
 
   const data = [cost];
 
+  const theme = getTheme()
+
   if (!loading) {
     return <div>Loading...</div>;
   }
@@ -95,7 +97,7 @@ export function GKECost(props: CostProps) {
 
   return (
     <div>
-      <DataTable columns={columns} data={data} />
+      <DataTable theme={theme} columns={columns} data={data} />
     </div>
   );
 }
