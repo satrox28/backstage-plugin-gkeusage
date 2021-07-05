@@ -48,8 +48,7 @@ export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
     setDays(item);
   };
 
-  const theme = useTheme();
-  const formThemeColors = getSelectTheme(theme);
+  const formThemeColors = getSelectTheme(useTheme());
 
   return (
     <InfoCard title="GKE Usage Dashboard">
