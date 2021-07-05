@@ -86,7 +86,7 @@ export function GKECost(props: CostProps) {
 
   const data = [cost];
 
-  const theme = getTheme()
+  const theme = getTheme();
 
   if (!loading) {
     return <div>Loading...</div>;

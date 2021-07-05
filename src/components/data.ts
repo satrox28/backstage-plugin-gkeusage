@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core';
+import { Theme } from "@material-ui/core";
 
 interface Option {
   label: string;
@@ -7,24 +7,24 @@ interface Option {
 
 export const options: Option[] = [
   {
-    label: 'last 1 days',
-    value: '1',
+    label: "last 1 days",
+    value: "1",
   },
   {
-    label: 'last 7 days',
-    value: '7',
+    label: "last 7 days",
+    value: "7",
   },
   {
-    label: 'last 14 days',
-    value: '14',
+    label: "last 14 days",
+    value: "14",
   },
   {
-    label: 'last 30 days',
-    value: '30',
+    label: "last 30 days",
+    value: "30",
   },
   {
-    label: 'last 60 days',
-    value: '60',
+    label: "last 60 days",
+    value: "60",
   },
 ];
 
@@ -35,35 +35,35 @@ interface Column {
 
 export const columns: Column[] = [
   {
-    name: 'CPU Cost',
-    selector: 'cpu',
+    name: "CPU Cost",
+    selector: "cpu",
   },
   {
-    name: 'Memory Cost',
-    selector: 'memory',
+    name: "Memory Cost",
+    selector: "memory",
   },
   {
-    name: 'Network Cost',
-    selector: 'network',
+    name: "Network Cost",
+    selector: "network",
   },
   {
-    name: 'Storage Cost',
-    selector: 'storage',
+    name: "Storage Cost",
+    selector: "storage",
   },
   {
-    name: 'GPU Cost',
-    selector: 'gpu',
+    name: "GPU Cost",
+    selector: "gpu",
   },
   {
-    name: 'Total Cost',
-    selector: 'total',
+    name: "Total Cost",
+    selector: "total",
   },
 ];
 
 export function getTheme() {
-  const localTheme = window.localStorage.getItem('theme');
-  let theme: string = 'light';
-  if (localTheme === 'dark') {
+  const localTheme = window.localStorage.getItem("theme");
+  let theme: string = "light";
+  if (localTheme === "dark") {
     theme = localTheme;
   }
 
@@ -75,7 +75,7 @@ export const getSelectTheme = (theme: Theme) => {
     /*
      * multiValue(remove)/color:hover
      */
-    danger: 'purple',
+    danger: "purple",
 
     /*
      * multiValue(remove)/backgroundColor(focused)
@@ -93,14 +93,14 @@ export const getSelectTheme = (theme: Theme) => {
     /*
      * control/backgroundColor(disabled)
      */
-    neutral5: 'orange',
+    neutral5: "orange",
 
     /*
      * control/borderColor(disabled)
      * multiValue/backgroundColor
      * indicators(separator)/backgroundColor(disabled)
      */
-    neutral10: 'pink',
+    neutral10: "pink",
 
     /*
      * control/borderColor
@@ -109,7 +109,7 @@ export const getSelectTheme = (theme: Theme) => {
      * indicators(separator)/backgroundColor
      * indicators(loading)/color
      */
-    neutral20: theme.palette.grey['A200'],
+    neutral20: theme.palette.grey["A200"],
 
     /*
      * control/borderColor(focused)
@@ -123,20 +123,20 @@ export const getSelectTheme = (theme: Theme) => {
      * singleValue/color(disabled)
      * indicators/color:hover
      */
-    neutral40: 'green',
+    neutral40: "green",
 
     /*
      * placeholder/color
      */
     // seen in placeholder text
-    neutral50: theme.palette.grey['A200'],
+    neutral50: theme.palette.grey["A200"],
 
     /*
      * indicators/color(focused)
      * indicators(loading)/color(focused)
      */
-    neutral60: 'purple',
-    neutral70: 'purple',
+    neutral60: "purple",
+    neutral70: "purple",
 
     /*
      * input/color
@@ -148,7 +148,7 @@ export const getSelectTheme = (theme: Theme) => {
     neutral80: theme.palette.text.primary,
 
     // no idea
-    neutral90: 'pink',
+    neutral90: "pink",
 
     /*
      * control/boxShadow(focused)
