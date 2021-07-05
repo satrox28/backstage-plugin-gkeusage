@@ -109,7 +109,7 @@ export const getSelectTheme = (theme: Theme) => {
      * indicators(separator)/backgroundColor
      * indicators(loading)/color
      */
-    neutral20: theme.palette.grey["A200"],
+    neutral20: theme.palette.grey.A200,
 
     /*
      * control/borderColor(focused)
@@ -129,7 +129,7 @@ export const getSelectTheme = (theme: Theme) => {
      * placeholder/color
      */
     // seen in placeholder text
-    neutral50: theme.palette.grey["A200"],
+    neutral50: theme.palette.grey.A200,
 
     /*
      * indicators/color(focused)
