@@ -51,7 +51,7 @@ export function GKECost(props: CostProps) {
       );
 
       const currency: string | undefined = getSymbolFromCurrency(
-        json[0].currency
+        await json[0].currency
       );
 
       const totalCost =
