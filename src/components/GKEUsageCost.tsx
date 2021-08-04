@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
+import { columns } from "./data";
+import MUIDataTable from "mui-datatables";
 import getSymbolFromCurrency from "currency-symbol-map";
-import { columns, getTheme } from "./data";
+
 
 export function GKECost(props: CostProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [cost, setCost] = useState<ResourceCost>();
+  const [cost, setCost] = useState<ResourceCost>({
+    cpu: '',
+  memory: '0',
+  network: '0',
+  storage: '0',
+  gpu: '0',
+  total: '0'});
 
   useEffect(() => {
     setLoading(false);
@@ -26,47 +33,48 @@ export function GKECost(props: CostProps) {
       let storageCost = 0;
       let gpuCost = 0;
 
-      await Promise.all(
-        json.map(async (value: { resource_name: any; cost: number }) => {
-          switch (value.resource_name) {
-            case "cpu":
-              cpuCost += value.cost;
-              break;
-            case "memory":
-              memoryCost += value.cost;
-              break;
-            case "storage":
-              storageCost += value.cost;
-              break;
-            case "networkEgress":
-              networkCost += value.cost;
-              break;
-            case "gpu":
-              gpuCost += value.cost;
-              break;
-            default:
-              break;
-          }
-        })
-      );
+json.forEach(async (value: { resource_name: any; cost: number; }) =>{
+  switch (value.resource_name) {
+          case "cpu":
+            cpuCost += value.cost;
+            console.log(cpuCost)
+            break;
+          case "memory":
+            memoryCost += value.cost;
+            break;
+          case "storage":
+            storageCost += value.cost;
+            break;
+          case "networkEgress":
+            networkCost += value.cost;
+            break;
+          case "gpu":
+            gpuCost += value.cost;
+            break;
+          default:
+            break;
+        }
+}
+)
 
       const currency: string | undefined = getSymbolFromCurrency(
         await json[0].currency
       );
+
 
       const totalCost =
         Math.round(
           (memoryCost + cpuCost + networkCost + storageCost + gpuCost) * 100
         ) / 100;
 
-      const roundedCost: ResourceCost = {
-        cpu: `${currency} ${Math.round(cpuCost * 100) / 100}`,
-        memory: `${currency} ${Math.round(memoryCost * 100) / 100}`,
-        network: `${currency} ${Math.round(networkCost * 100) / 100}`,
-        storage: `${currency} ${Math.round(storageCost * 100) / 100}`,
-        gpu: `${currency} ${Math.round(gpuCost * 100) / 100}`,
-        total: `${currency} ${Math.round(totalCost * 100) / 100}`,
-      };
+        const roundedCost: ResourceCost = {
+          cpu: `${currency} ${Math.round(cpuCost * 100) / 100}`,
+          memory: `${currency} ${Math.round(memoryCost * 100) / 100}`,
+          network: `${currency} ${Math.round(networkCost * 100) / 100}`,
+          storage: `${currency} ${Math.round(storageCost * 100) / 100}`,
+          gpu: `${currency} ${Math.round(gpuCost * 100) / 100}`,
+          total: `${currency} ${Math.round(totalCost * 100) / 100}`,
+        };
 
       setCost(roundedCost);
     }
@@ -85,20 +93,41 @@ export function GKECost(props: CostProps) {
   }, [props.url, props.maxAge]);
 
   const data = [cost];
+  console.log(data)
 
-  const theme = getTheme();
+  const options = {
+    filter: false,
+    checkbox: false,
+    search: false,
+    print: false,
+    download: false,
+    viewColumns: false,
+    customToolbar: null,
+    responsive: 'vertical',
+    selectableRows: false,
+    customFooter: () => {
+      return (
+        null
+      );
+  }
+}
+
 
   if (!loading) {
-    return <div>Loading...</div>;
+    return (
+
+      <p>Loading...</p>
+
+    )
+
+    ;
   }
   if (error) {
     return <p>{errorMsg}</p>;
   }
 
   return (
-    <div>
-      <DataTable theme={theme} columns={columns} data={data} />
-    </div>
+      <MUIDataTable options={options} columns={columns} data={data} />
   );
 }
 
@@ -107,7 +136,7 @@ interface CostProps {
   url: string;
 }
 
-export interface ResourceCost {
+export interface ResourceCost{
   cpu: string;
   memory: string;
   network: string;

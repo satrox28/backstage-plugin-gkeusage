@@ -37,15 +37,16 @@ export function GKEConsumption(props: ConsumptionProps) {
 
   return (
     <div>
-      <Grid container spacing={5}>
+      <Grid container justify="space-around" spacing={1}>
         {usage.map((item: Consumption) =>
           item.resource_name !== "networkEgress" ? (
-            <Grid key={item.resource_name} item sm={4}>
+            <Grid key={item.resource_name} item sm={3}>
               <ReactSpeedometer
                 value={item.consumption_percentage}
                 maxValue={100}
                 currentValueText={`${item.resource_name} usage %`}
               />
+              
             </Grid>
           ) : null
         )}
