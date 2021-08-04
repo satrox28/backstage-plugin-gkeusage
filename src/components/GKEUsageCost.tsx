@@ -37,7 +37,6 @@ export function GKECost(props: CostProps) {
         switch (value.resource_name) {
           case "cpu":
             cpuCost += value.cost;
-            console.log(cpuCost);
             break;
           case "memory":
             memoryCost += value.cost;
@@ -91,7 +90,6 @@ export function GKECost(props: CostProps) {
   }, [props.url, props.maxAge]);
 
   const data = [cost];
-  console.log(data);
 
   const options = {
     filter: false,

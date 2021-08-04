@@ -23,12 +23,12 @@ import { GKEConsumption } from "./GKEUsageConsumption";
 import {
   Card,
   Button,
+  Grid,
   MuiThemeProvider,
   Select,
   MenuItem,
 } from "@material-ui/core";
 import LinkIcon from "@material-ui/icons/Link";
-import { Grid } from "@material-ui/core";
 import { getTheme } from "./data";
 
 export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
