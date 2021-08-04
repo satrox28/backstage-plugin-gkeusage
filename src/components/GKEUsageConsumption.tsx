@@ -46,7 +46,6 @@ export function GKEConsumption(props: ConsumptionProps) {
                 maxValue={100}
                 currentValueText={`${item.resource_name} usage %`}
               />
-              
             </Grid>
           ) : null
         )}

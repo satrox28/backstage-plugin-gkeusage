@@ -17,12 +17,17 @@
 import { Entity } from "@backstage/catalog-model";
 import { InfoCard } from "@backstage/core";
 import React, { useState } from "react";
-// import Select from "react-select";
 import { useGkeUsageMeteringAppData } from "./useGkeUsageMeteringAppData";
 import { GKECost } from "./GKEUsageCost";
 import { GKEConsumption } from "./GKEUsageConsumption";
-import { Card, CardActions, Button, MuiThemeProvider, createTheme, Select, MenuItem } from "@material-ui/core";
-import LinkIcon from '@material-ui/icons/Link';
+import {
+  Card,
+  Button,
+  MuiThemeProvider,
+  Select,
+  MenuItem,
+} from "@material-ui/core";
+import LinkIcon from "@material-ui/icons/Link";
 import { Grid } from "@material-ui/core";
 import { getTheme } from "./data";
 
@@ -49,49 +54,42 @@ export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
     setDays(event.target.value);
   };
 
- 
-
   const handleClick = () => {
-    window.open("https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/");
+    window.open(
+      "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+    );
   };
 
-
-const theme = getTheme()
+  const theme = getTheme();
 
   return (
-    <InfoCard title="GKE Usage Dashboard" >
-          <MuiThemeProvider theme={theme}>
-
-
-          <Grid container justify="space-between" spacing={1}>
+    <InfoCard title="GKE Usage Dashboard">
+      <MuiThemeProvider theme={theme}>
+        <Grid container justify="space-between" spacing={1}>
           <Grid item xs={2}>
-          <Select
-        defaultValue={days}
-        onChange={handleChange}
-        value={days}
-
-      >
-          <MenuItem value={1}>last 1 Day</MenuItem>
-          <MenuItem value={7}>last 7 Days</MenuItem>
-          <MenuItem value={14}>last 14 Days</MenuItem>
-          <MenuItem value={30}>last 30 Days</MenuItem>
-          <MenuItem value={60}>last 60 Days</MenuItem>
-      </Select>
+            <Select defaultValue={days} onChange={handleChange} value={days}>
+              <MenuItem value={1}>last 1 Day</MenuItem>
+              <MenuItem value={7}>last 7 Days</MenuItem>
+              <MenuItem value={14}>last 14 Days</MenuItem>
+              <MenuItem value={30}>last 30 Days</MenuItem>
+              <MenuItem value={60}>last 60 Days</MenuItem>
+            </Select>
+          </Grid>
+          <Grid item xs={2}>
+            <Button endIcon={<LinkIcon />} onClick={handleClick}>
+              How to manage Resources
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item  xs={2}>
-        <Button endIcon={<LinkIcon />}  onClick={handleClick}>How to manage Resources</Button>
-        </Grid>
-     
-     </Grid>
-     <p />
-      <Card>
-        <GKECost url={costUrl} maxAge={days} />
-      </Card>
-      <p />
-      <Card>
         <p />
-        <GKEConsumption url={usageUrl} maxAge={days} />
-      </Card>
+        <Card>
+          <GKECost url={costUrl} maxAge={days} />
+        </Card>
+        <p />
+        <Card>
+          <p />
+          <GKEConsumption url={usageUrl} maxAge={days} />
+        </Card>
       </MuiThemeProvider>
     </InfoCard>
   );

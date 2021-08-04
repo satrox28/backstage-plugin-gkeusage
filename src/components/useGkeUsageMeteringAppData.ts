@@ -25,7 +25,8 @@ export const useGkeUsageMeteringAppData = ({ entity }: { entity: Entity }) => {
   const dataset =
     entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_DATASET] ?? "";
   const namespace =
-    entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_NAMESPACE] ?? "default";
+    entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_NAMESPACE] ??
+    "default";
   const label =
     entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_LABEL] ?? "";
 

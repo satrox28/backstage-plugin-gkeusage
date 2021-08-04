@@ -1,4 +1,4 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme } from "@material-ui/core/styles";
 
 interface Column {
   name: string;
@@ -39,13 +39,9 @@ export function getTheme() {
     theme = localTheme;
   }
 
-
   const newTheme = createTheme({
-    palette: {type: theme},
-  
-});
-
-
+    palette: { type: theme },
+  });
 
   return newTheme;
 }

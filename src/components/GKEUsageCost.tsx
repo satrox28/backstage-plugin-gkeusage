@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { columns } from "./data";
-import MUIDataTable from "mui-datatables";
 import getSymbolFromCurrency from "currency-symbol-map";
-
+import MUIDataTable from "mui-datatables";
 
 export function GKECost(props: CostProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [cost, setCost] = useState<ResourceCost>({
-    cpu: '',
-  memory: '0',
-  network: '0',
-  storage: '0',
-  gpu: '0',
-  total: '0'});
+    cpu: "",
+    memory: "0",
+    network: "0",
+    storage: "0",
+    gpu: "0",
+    total: "0",
+  });
 
   useEffect(() => {
     setLoading(false);
@@ -33,11 +33,11 @@ export function GKECost(props: CostProps) {
       let storageCost = 0;
       let gpuCost = 0;
 
-json.forEach(async (value: { resource_name: any; cost: number; }) =>{
-  switch (value.resource_name) {
+      json.forEach(async (value: { resource_name: any; cost: number }) => {
+        switch (value.resource_name) {
           case "cpu":
             cpuCost += value.cost;
-            console.log(cpuCost)
+            console.log(cpuCost);
             break;
           case "memory":
             memoryCost += value.cost;
@@ -54,27 +54,25 @@ json.forEach(async (value: { resource_name: any; cost: number; }) =>{
           default:
             break;
         }
-}
-)
+      });
 
       const currency: string | undefined = getSymbolFromCurrency(
         await json[0].currency
       );
-
 
       const totalCost =
         Math.round(
           (memoryCost + cpuCost + networkCost + storageCost + gpuCost) * 100
         ) / 100;
 
-        const roundedCost: ResourceCost = {
-          cpu: `${currency} ${Math.round(cpuCost * 100) / 100}`,
-          memory: `${currency} ${Math.round(memoryCost * 100) / 100}`,
-          network: `${currency} ${Math.round(networkCost * 100) / 100}`,
-          storage: `${currency} ${Math.round(storageCost * 100) / 100}`,
-          gpu: `${currency} ${Math.round(gpuCost * 100) / 100}`,
-          total: `${currency} ${Math.round(totalCost * 100) / 100}`,
-        };
+      const roundedCost: ResourceCost = {
+        cpu: `${currency} ${Math.round(cpuCost * 100) / 100}`,
+        memory: `${currency} ${Math.round(memoryCost * 100) / 100}`,
+        network: `${currency} ${Math.round(networkCost * 100) / 100}`,
+        storage: `${currency} ${Math.round(storageCost * 100) / 100}`,
+        gpu: `${currency} ${Math.round(gpuCost * 100) / 100}`,
+        total: `${currency} ${Math.round(totalCost * 100) / 100}`,
+      };
 
       setCost(roundedCost);
     }
@@ -93,7 +91,7 @@ json.forEach(async (value: { resource_name: any; cost: number; }) =>{
   }, [props.url, props.maxAge]);
 
   const data = [cost];
-  console.log(data)
+  console.log(data);
 
   const options = {
     filter: false,
@@ -103,32 +101,21 @@ json.forEach(async (value: { resource_name: any; cost: number; }) =>{
     download: false,
     viewColumns: false,
     customToolbar: null,
-    responsive: 'vertical',
+    responsive: "vertical",
     selectableRows: false,
     customFooter: () => {
-      return (
-        null
-      );
-  }
-}
-
+      return null;
+    },
+  };
 
   if (!loading) {
-    return (
-
-      <p>Loading...</p>
-
-    )
-
-    ;
+    return <p>Loading...</p>;
   }
   if (error) {
     return <p>{errorMsg}</p>;
   }
 
-  return (
-      <MUIDataTable options={options} columns={columns} data={data} />
-  );
+  return <MUIDataTable options={options} columns={columns} data={data} />;
 }
 
 interface CostProps {
@@ -136,7 +123,7 @@ interface CostProps {
   url: string;
 }
 
-export interface ResourceCost{
+export interface ResourceCost {
   cpu: string;
   memory: string;
   network: string;
