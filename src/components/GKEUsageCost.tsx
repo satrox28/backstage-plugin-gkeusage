@@ -98,9 +98,8 @@ export function GKECost(props: CostProps) {
     print: false,
     download: false,
     viewColumns: false,
-    customToolbar: null,
-    responsive: "vertical",
-    selectableRows: false,
+    customToolbar: undefined,
+    selectableRows: undefined,
     customFooter: () => {
       return null;
     },
@@ -113,7 +112,9 @@ export function GKECost(props: CostProps) {
     return <p>{errorMsg}</p>;
   }
 
-  return <MUIDataTable options={options} columns={columns} data={data} />;
+  return (
+    <MUIDataTable title="" options={options} columns={columns} data={data} />
+  );
 }
 
 interface CostProps {
