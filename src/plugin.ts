@@ -5,7 +5,7 @@ import {
   createRoutableExtension,
   createRouteRef,
   discoveryApiRef,
-} from "@backstage/core";
+} from "@backstage/core-plugin-api";
 import { GkeusageApiClient, gkeusageApiRef } from "./api";
 import { GKEMETERING_ANNOTATION_DATASET } from "./components/useGkeUsageMeteringAppData";
 

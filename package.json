@@ -21,9 +21,11 @@
     "clean": "backstage-cli clean"
   },
   "dependencies": {
-    "@backstage/catalog-model": "^0.8.4",
-    "@backstage/core": "^0.7.6",
-    "@backstage/plugin-catalog-react": "^0.2.3",
+    "@backstage/catalog-model": "^0.9.0",
+    "@backstage/core-app-api": "^0.1.10",
+    "@backstage/core-plugin-api": "^0.1.6",
+    "@backstage/core-components": "^0.3.3",
+    "@backstage/plugin-catalog-react": "^0.4.4",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@rollup/plugin-commonjs": "^19.0.0",

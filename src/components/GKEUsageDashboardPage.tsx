@@ -15,7 +15,7 @@
  */
 
 import { Entity } from "@backstage/catalog-model";
-import { InfoCard } from "@backstage/core";
+import { InfoCard } from "@backstage/core-components";
 import React, { useState } from "react";
 import { useGkeUsageMeteringAppData } from "./useGkeUsageMeteringAppData";
 import { GKECost } from "./GKEUsageCost";
