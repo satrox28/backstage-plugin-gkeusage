@@ -29,7 +29,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import LinkIcon from "@material-ui/icons/Link";
-import { getTheme } from "./data";
+import { BackstageTheme } from '@backstage/theme';
 
 export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
   const { dataset } = useGkeUsageMeteringAppData({ entity });
@@ -60,11 +60,12 @@ export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
     );
   };
 
-  const theme = getTheme();
+  const theme = useTheme<BackstageTheme>();
+  const mode = theme.palette.type === 'dark' ? 'dark' : 'light';
 
   return (
     <InfoCard title="GKE Usage Dashboard">
-      <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={mode}>
         <Grid container justify="space-between" spacing={1}>
           <Grid item xs={2}>
             <Select defaultValue={days} onChange={handleChange} value={days}>

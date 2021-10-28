@@ -32,16 +32,3 @@ export const columns: Column[] = [
   },
 ];
 
-export function getTheme() {
-  const localTheme = window.localStorage.getItem("theme");
-  let theme: any = "light";
-  if (localTheme === "dark") {
-    theme = localTheme;
-  }
-
-  const newTheme = createTheme({
-    palette: { type: theme },
-  });
-
-  return newTheme;
-}
