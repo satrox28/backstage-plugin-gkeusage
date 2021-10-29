@@ -1,5 +1,3 @@
-import { createTheme } from "@material-ui/core/styles";
-
 interface Column {
   name: string;
   label: string;
@@ -31,4 +29,3 @@ export const columns: Column[] = [
     label: "Total Cost",
   },
 ];
-

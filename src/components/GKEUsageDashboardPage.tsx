@@ -29,7 +29,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import LinkIcon from "@material-ui/icons/Link";
-import { BackstageTheme } from '@backstage/theme';
+import { BackstageTheme } from "@backstage/theme";
 
 export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
   const { dataset } = useGkeUsageMeteringAppData({ entity });
@@ -61,7 +61,7 @@ export const GKEUsageDashboardPage = ({ entity }: { entity: Entity }) => {
   };
 
   const theme = useTheme<BackstageTheme>();
-  const mode = theme.palette.type === 'dark' ? 'dark' : 'light';
+  const mode = theme.palette.type === "dark" ? "dark" : "light";
 
   return (
     <InfoCard title="GKE Usage Dashboard">
