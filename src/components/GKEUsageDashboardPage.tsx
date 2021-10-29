@@ -27,6 +27,7 @@ import {
   MuiThemeProvider,
   Select,
   MenuItem,
+  useTheme,
 } from "@material-ui/core";
 import LinkIcon from "@material-ui/icons/Link";
 import { BackstageTheme } from "@backstage/theme";
