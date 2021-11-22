@@ -1,49 +1,31 @@
-export const options = [
-  {
-    label: "last 1 days",
-    value: "1",
-  },
-  {
-    label: "last 7 days",
-    value: "7",
-  },
-  {
-    label: "last 14 days",
-    value: "14",
-  },
-  {
-    label: "last 30 days",
-    value: "30",
-  },
-  {
-    label: "last 60 days",
-    value: "60",
-  },
-];
+interface Column {
+  name: string;
+  label: string;
+}
 
-export const columns = [
+export const columns: Column[] = [
   {
-    name: "CPU Cost",
-    selector: "cpu",
+    name: "cpu",
+    label: "CPU Cost",
   },
   {
-    name: "Memory Cost",
-    selector: "memory",
+    name: "memory",
+    label: "Memory Cost",
   },
   {
-    name: "Network Cost",
-    selector: "network",
+    name: "network",
+    label: "Network Cost",
   },
   {
-    name: "Storage Cost",
-    selector: "storage",
+    name: "storage",
+    label: "Storage Cost",
   },
   {
-    name: "GPU Cost",
-    selector: "gpu",
+    name: "gpu",
+    label: "GPU Cost",
   },
   {
-    name: "Total Cost",
-    selector: "total",
+    name: "total",
+    label: "Total Cost",
   },
 ];

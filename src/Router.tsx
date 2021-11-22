@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Entity } from "@backstage/catalog-model";
-import { MissingAnnotationEmptyState } from "@backstage/core";
+import { useEntity } from "@backstage/plugin-catalog-react";
+import { MissingAnnotationEmptyState } from "@backstage/core-components";
 import React from "react";
 import { Route, Routes } from "react-router";
 import { GKEUsageDashboardPage } from "./components/GKEUsageDashboardPage";
 import { GKEMETERING_ANNOTATION_DATASET } from "./components/useGkeUsageMeteringAppData";
 import { isGkeUsageMeteringAvailable } from "./plugin";
 
-export const Router = ({ entity }: { entity: Entity }) =>
-  !isGkeUsageMeteringAvailable(entity) ? (
+export const Router = () => {
+  const { entity } = useEntity();
+  return !isGkeUsageMeteringAvailable(entity) ? (
     <MissingAnnotationEmptyState annotation={GKEMETERING_ANNOTATION_DATASET} />
   ) : (
     <Routes>
       <Route path="/" element={<GKEUsageDashboardPage entity={entity} />} />
     </Routes>
   );
+};

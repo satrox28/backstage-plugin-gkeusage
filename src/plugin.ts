@@ -1,12 +1,11 @@
 import { Entity } from "@backstage/catalog-model";
 import {
   createApiFactory,
-  // createComponentExtension,
   createPlugin,
   createRoutableExtension,
   createRouteRef,
   discoveryApiRef,
-} from "@backstage/core";
+} from "@backstage/core-plugin-api";
 import { GkeusageApiClient, gkeusageApiRef } from "./api";
 import { GKEMETERING_ANNOTATION_DATASET } from "./components/useGkeUsageMeteringAppData";
 
@@ -31,7 +30,7 @@ export const gkeusagePlugin = createPlugin({
   },
 });
 
-export const EntityGContent = gkeusagePlugin.provide(
+export const EntityGKEUsageContent = gkeusagePlugin.provide(
   createRoutableExtension({
     component: () => import("./Router").then((m) => m.Router),
     mountPoint: entityContentRouteRef,

@@ -25,16 +25,14 @@ export { plugin as gkeusage } from '@bestsellerit/backstage-plugin-gkeusage';
 ```
 ```ts
 // packages/app/src/components/catalog/EntityPage.tsx
-import { Router as GKEUsageRouter } from '@bestsellerit/backstage-plugin-gkeusage';
+import { EntityGKEUsageContent } from '@bestsellerit/backstage-plugin-gkeusage';
 
 const serviceEntityPage = (
-// ...
   <EntityPageLayout>
-    <EntityPageLayout.Content
-      path="/gkeusage/*"
-      title="GKE Usage"
-      element={<GKEUsageRouter entity={entity} />}
-    />
+    // ...
+    <EntityLayout.Route path="/gkeusage" title="GKE Usage">
+      <EntityGKEUsageContent />
+    </EntityLayout.Route>
   </EntityPageLayout>
 )
 ```
@@ -68,7 +66,7 @@ import gkeusage from './plugins/gkeusage';
 async function main() {
   // ...
   const gkeusageEnv = useHotMemoize(module, () => createEnv('gkeusage'));
-  apiRouter.use('/gkeusage', await carmen(gkeusageEnv));
+  apiRouter.use('/gkeusage', await gkeusage(gkeusageEnv));
 
 ```
 
