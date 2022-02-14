@@ -1,31 +1,28 @@
-interface Column {
-  name: string;
-  label: string;
-}
+import { TableColumn } from '@backstage/core-components';
 
-export const columns: Column[] = [
+export const columns: TableColumn[] = [
   {
-    name: "cpu",
-    label: "CPU Cost",
+    field: 'cpu',
+    title: 'CPU Cost',
   },
   {
-    name: "memory",
-    label: "Memory Cost",
+    field: 'memory',
+    title: 'Memory Cost',
   },
   {
-    name: "network",
-    label: "Network Cost",
+    field: 'network',
+    title: 'Network Cost',
   },
   {
-    name: "storage",
-    label: "Storage Cost",
+    field: 'storage',
+    title: 'Storage Cost',
   },
   {
-    name: "gpu",
-    label: "GPU Cost",
+    field: 'gpu',
+    title: 'GPU Cost',
   },
   {
-    name: "total",
-    label: "Total Cost",
+    field: 'total',
+    title: 'Total Cost',
   },
 ];
