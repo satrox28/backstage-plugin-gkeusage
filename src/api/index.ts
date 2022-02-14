@@ -4,7 +4,6 @@ export interface gkeusageApi {}
 
 export const gkeusageApiRef = createApiRef<gkeusageApi>({
   id: "plugin.gkeusage.service",
-  description: "Used by the GKEUsage plugin to make requests",
 });
 
 export type Options = {
