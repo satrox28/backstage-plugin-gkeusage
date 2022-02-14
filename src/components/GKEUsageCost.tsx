@@ -103,11 +103,17 @@ export function GKECost(props: CostProps) {
   }
 
   return (
-    <Table 
-      options={{ paging: false, search: false, padding: "dense", toolbar: false }} 
-      title="" 
-      columns={columns} 
-      data={data} />
+    <Table
+      options={{
+        paging: false,
+        search: false,
+        padding: "dense",
+        toolbar: false,
+      }}
+      title=""
+      columns={columns}
+      data={data}
+    />
   );
 }
 

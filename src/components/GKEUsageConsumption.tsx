@@ -29,7 +29,6 @@ export function GKEConsumption(props: ConsumptionProps) {
     }, 3000);
   }, [props.url, props.maxAge]);
 
-
   if (!loading) {
     return (
       <div>
