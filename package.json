@@ -51,7 +51,7 @@
     "@backstage/dev-utils": "^1.0.0",
     "@backstage/test-utils": "^1.0.0",
     "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.7",
+    "@testing-library/react": "^12.1.4",
     "@types/mui-datatables": "^3.7.5",
     "@types/react-select": "^4.0.15",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
