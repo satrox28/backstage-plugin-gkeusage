@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { columns } from "./data";
 import getSymbolFromCurrency from "currency-symbol-map";
-import MUIDataTable from "mui-datatables";
+import { Progress, Table } from "@backstage/core-components";
 
 export function GKECost(props: CostProps) {
   const [loading, setLoading] = useState(false);
@@ -91,29 +91,29 @@ export function GKECost(props: CostProps) {
 
   const data = [cost];
 
-  const options = {
-    filter: false,
-    checkbox: false,
-    search: false,
-    print: false,
-    download: false,
-    viewColumns: false,
-    customToolbar: undefined,
-    selectableRows: undefined,
-    customFooter: () => {
-      return null;
-    },
-  };
-
   if (!loading) {
-    return <p>Loading...</p>;
+    return (
+      <div>
+        <Progress />
+      </div>
+    );
   }
   if (error) {
     return <p>{errorMsg}</p>;
   }
 
   return (
-    <MUIDataTable title="" options={options} columns={columns} data={data} />
+    <Table
+      options={{
+        paging: false,
+        search: false,
+        padding: "dense",
+        toolbar: false,
+      }}
+      title=""
+      columns={columns}
+      data={data}
+    />
   );
 }
 

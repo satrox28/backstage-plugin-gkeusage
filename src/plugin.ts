@@ -13,7 +13,7 @@ export const isGkeUsageMeteringAvailable = (entity: Entity) =>
   Boolean(entity?.metadata.annotations?.[GKEMETERING_ANNOTATION_DATASET]);
 
 export const entityContentRouteRef = createRouteRef({
-  title: "GKE Usage Metering Entity Content",
+  id: "GKE Usage Metering Entity Content",
 });
 
 export const gkeusagePlugin = createPlugin({

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import ReactSpeedometer from "react-d3-speedometer";
+import { Progress } from "@backstage/core-components";
 
 export function GKEConsumption(props: ConsumptionProps) {
   const [loading, setLoading] = useState(false);
@@ -29,7 +30,11 @@ export function GKEConsumption(props: ConsumptionProps) {
   }, [props.url, props.maxAge]);
 
   if (!loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Progress />
+      </div>
+    );
   }
   if (error) {
     return <p>{errorMsg}</p>;
