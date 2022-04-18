@@ -29,7 +29,7 @@
     "@backstage/theme": "^0.2.11",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
-    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "currency-symbol-map": "^5.0.1",
     "history": "^5.0.0",
